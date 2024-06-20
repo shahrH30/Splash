@@ -103,7 +103,6 @@ public class GameManagerScript : MonoBehaviour
     private int questionNumber; //מעקב באיזה שאלה אני מתוך המשחק
     private TimeLimitTimer questionTimer = new TimeLimitTimer();//כמה זמן עבר מתחילת השאלה
     [SerializeField] private GameData game;// הפניה למחלקה שניצור בה את השאלות ותשובות מחוץ לקוד ונשתמש בה בקוד
-    public bool timerActive;// בדיקה אם השעון פעיל
     private List<AnswerBoxScript> answerOnScreen = new List<AnswerBoxScript>();// רשימה של כל האפשרויות של התשובות שיש על המסך
 
 
@@ -776,11 +775,11 @@ public class GameManagerScript : MonoBehaviour
         }
 
 
-        if (timerActive)// ספירה לאחור של הזמן של המשתמש
+        if (questionTimer.IsRunning)// ספירה לאחור של הזמן של המשתמש
         {
 
-
-            playerTurn.timerText.text = FormatTime(Mathf.RoundToInt((float)questionTimer.QuestionTime));
+            print("timer active");
+            playerTurn.timerText.text = FormatTime(Mathf.RoundToInt(game.questionTime - (float)questionTimer.QuestionTime));
 
             //playerTurn.timerText.text = FormatTime((int)questionTime+1);// עדכון ויזואלי של טקסט הזמן לשחקן הנוכחי
 
@@ -1116,6 +1115,7 @@ public class GameManagerScript : MonoBehaviour
         // הפעלת הטיימר לשאלה אם אנחנו לא במסך פאוז
         if (ResumeGameWasActiv == false)// הגדרת זמן השאלה
         {
+
             if(game.questionTime > 0)
                 questionTimer.Start(game.questionTime, () => {questionImagePanel.SetActive(false);// הזזת התמונות שלא 
                 timerSpotPlayer1.SetActive(false);//כיבוי של מקום לשעון 
@@ -1246,7 +1246,7 @@ public class GameManagerScript : MonoBehaviour
         {
             chosenAnswer.Feedback();// הפעלת משוב על התשובה שנבחרה
 
-            playerTurn.AddScore(chosenAnswer.answerData.isCorrect, game.questionTime - (float) questionTimer.QuestionTime);// עדכון הניקוד 
+            playerTurn.AddScore(chosenAnswer.answerData.isCorrect, Mathf.Abs( game.questionTime - (float) questionTimer.QuestionTime));// עדכון הניקוד 
 
             if (chosenAnswer.answerData.isCorrect)
             {
@@ -1436,10 +1436,9 @@ public class GameManagerScript : MonoBehaviour
     public void AnswerTimeUp()//פונקציה שפועלת ברגע שנגמר הזמן למשתמש
     {
 
-        playerTurn.AddScore(false, game.questionTime - (float)questionTimer.QuestionTime);// מוסיפים את הזמן שעבר לשחקן ושהוא טעה אוטומטית בשאלה לפונקצית הציון
+        playerTurn.AddScore(false, Mathf.Abs( game.questionTime - (float)questionTimer.QuestionTime));// מוסיפים את הזמן שעבר לשחקן ושהוא טעה אוטומטית בשאלה לפונקצית הציון
         TimeUpCanvas.SetActive(true);// מפעילים פופ אפ של נגמר הזמן
         DestroyAnswers();// הורסים את התשובות כדי ליצור אותן מחדש
-        timerActive = false;// סוגרים את השעון
 
         //ניקוי השעונים של השחקנים
         timerTextPlayer1.text = "";

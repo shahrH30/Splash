@@ -13,6 +13,7 @@ public class TimeLimitTimer : Timer
 
     float maxQuestionTime;
     public override float MaxQuestionTime { get => maxQuestionTime; set { if (!active) maxQuestionTime = value; } }
+    public bool IsRunning { get => timer.IsRunning; }
     Stopwatch timer = new Stopwatch();
     OnEvent OnTimeCompleted;
 
