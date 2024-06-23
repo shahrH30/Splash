@@ -9,28 +9,30 @@ using System.Diagnostics;
 
 public class TimeLimitTimer : Timer
 {
-    public override double QuestionTime { get => timer.Elapsed.TotalSeconds; }
+    public override double QuestionTime => timer.Elapsed.TotalSeconds;
 
-    float maxQuestionTime;
-    public override float MaxQuestionTime { get => maxQuestionTime; set { if (!active) maxQuestionTime = value; } }
-    public bool IsRunning { get => timer.IsRunning; }
-    Stopwatch timer = new Stopwatch();
-    OnEvent OnTimeCompleted;
+    private float maxQuestionTime;
+    public override float MaxQuestionTime
+    {
+        get => maxQuestionTime;
+        set { if (!active) maxQuestionTime = value; }
+    }
 
-    Task<bool> TimeCompletionCheck;
-    bool active = false;
+    public bool IsRunning => timer.IsRunning;
+
+    private readonly Stopwatch timer = new Stopwatch();
+    private OnEvent OnTimeCompleted;
+
+    private Task TimeCompletionCheck;
+    private bool active = false;
 
     public override bool CheckIfTimeLeft()
     {
-       if(maxQuestionTime == 0)
-       {
+        if (maxQuestionTime == 0)
+        {
             return true;
-       }
-       if(QuestionTime >= maxQuestionTime)
-       {
-            return false;
-       }
-       return true;
+        }
+        return QuestionTime < maxQuestionTime;
     }
 
     public override void Stop()
@@ -40,22 +42,22 @@ public class TimeLimitTimer : Timer
         TimeCompletionCheck = null;
     }
 
-    // Start is called before the first frame update
     public override void Start()
     {
         active = true;
         timer.Start();
     }
+
     public override void Start(float maxQuestionTime, OnEvent onTimeComplete)
     {
         this.maxQuestionTime = maxQuestionTime;
         timer.Start();
-        OnTimeCompleted = new OnEvent(onTimeComplete);
+        OnTimeCompleted = onTimeComplete;
         TimeCompletionCheck = CheckContinuously();
         active = true;
     }
 
-    private async Task<bool> CheckContinuously()
+    private async Task CheckContinuously()
     {
         while (timer.Elapsed.TotalSeconds < maxQuestionTime)
         {
@@ -63,16 +65,19 @@ public class TimeLimitTimer : Timer
         }
         OnTimeCompleted?.Invoke();
         Stop();
-
-        
-        return true;
     }
+
     public override void Pause()
     {
         active = false;
         timer.Stop();
     }
 
+    public void ResetTimer()
+    {
+        timer.Reset();
+        timer.Start();
+    }
 }
 
 public abstract class Timer
@@ -81,8 +86,7 @@ public abstract class Timer
     public abstract float MaxQuestionTime { get; set; }
     public abstract bool CheckIfTimeLeft();
     public abstract void Start();
-    public abstract void Start(float maxQuestionTime, OnEvent O);
+    public abstract void Start(float maxQuestionTime, OnEvent onTimeComplete);
     public abstract void Stop();
     public abstract void Pause();
-
 }

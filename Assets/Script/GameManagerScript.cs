@@ -1844,6 +1844,8 @@ public class GameManagerScript : MonoBehaviour
         stopBTNAsBtn.interactable = false;
 
         Time.timeScale = 0f; // הקפאת הזמן במשחק, עוצר את כל האנימציות והזמן
+        questionTimer.Pause();
+
 
         if (nextQuesBTN.activeSelf)// אם כפתור השאלה הבאה פעיל
         {
@@ -1877,30 +1879,28 @@ public class GameManagerScript : MonoBehaviour
     }
 
 
-    public void ResumeGame()// פונקציה שמפעיל הכפתור המשך בפופ אפ להמשך המשחק
+public void ResumeGame()
+{
+    stopBTNAsBtn.interactable = true;
+    questionTimer.ResetTimer(); // איפוס הטיימר למצב ההתחלתי
+    Time.timeScale = 1; // הפעלת הזמן במשחק שוב
+    pausePopup.SetActive(false); // הסתרת פופאפ העצירה
+    questionImagePanel.gameObject.SetActive(true); // הצגת הפאנל של התמונה
+
+    if (isBtnNextQuestionActiv) // אם כפתור השאלה הבאה היה פעיל בתחילת העצירה
     {
-        stopBTNAsBtn.interactable = true;
-        questionTimer.Start(); //הצגת הזמן ושמירת הזמן שהיה לשחקן לפני לחיצה על כפתור פאוז
-        Time.timeScale = 1; //מפעיל את זרימת הזמן שוב
-        pausePopup.SetActive(false); // הסתרת חלון פופ אפ
-        questionImagePanel.gameObject.SetActive(true); // מחזיר את פאנל התמונה
-
-
-        if (isBtnNextQuestionActiv == true)// אם הכפתור של שאלה הבאה היה פעיל בתחילת הסטופ 
-        {
-            nextQuesBTN.SetActive(true);// הפוך אותו לפעיל
-            isBtnNextQuestionActiv = false;// החזר את המשתנה של הבדיקה אם הוא פעיל לפאלס
-            answersGrid.gameObject.SetActive(true);// החזר למצב שרואים את הגריד כדורים
-        }
-        else // אם הכפתור לא היה פעיל
-        {
-            ResumeGameWasActiv = true;
-            //timerActive = true; // הפעלה מחדש של הטיימר
-            CreateQuestion(); // יצירת שאלה חדשה
-            ShowBalls(true);// מחזיר את הכדור של המשתמש לפעיל
-
-        }
+        nextQuesBTN.SetActive(true); // הפעלת כפתור השאלה הבאה
+        isBtnNextQuestionActiv = false; // איפוס המשתנה הבודק אם הכפתור היה פעיל
+        answersGrid.gameObject.SetActive(true); // הצגת גריד התשובות
     }
+    else // אם הכפתור לא היה פעיל
+    {
+        ResumeGameWasActiv = true;
+        CreateQuestion(); // יצירת שאלה חדשה
+        ShowBalls(true); // הצגת הכדור של השחקן
+    }
+}
+
     private void ShowBalls(bool show)// פונקציה שמשמשת להפעיל או לכבוד את גריד הכדורים והכדורים ברגע שפופ אפ נסגר או נפתח
     {
 
