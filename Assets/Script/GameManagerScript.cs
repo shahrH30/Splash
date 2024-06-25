@@ -903,20 +903,28 @@ public class GameManagerScript : MonoBehaviour
         activeBall.transform.position = ThrowBallStartingPos.position;// מזיזים את הכדור למקום ההתחלתי
 
         // הפעלת וכיבוי הטיימרים לפי התור
-        timerTextPlayer1.gameObject.SetActive(isPlayerOneTurn);
-        timerTextPlayer2.gameObject.SetActive(!isPlayerOneTurn);
-        timerSpotPlayer1.SetActive(isPlayerOneTurn);
-        timerSpotPlayer2.SetActive(!isPlayerOneTurn);
 
-        // הגדרת נראות הדמויות
-        if (isPlayerOneTurn)
+        if (game.questionTime > 0)
         {
-            SetCharacterVisuals(player2, true);
+            timerTextPlayer1.gameObject.SetActive(isPlayerOneTurn);
+            timerTextPlayer2.gameObject.SetActive(!isPlayerOneTurn);
+
+            timerSpotPlayer1.SetActive(isPlayerOneTurn);
+            timerSpotPlayer2.SetActive(!isPlayerOneTurn);
         }
-        else
-        {
-            SetCharacterVisuals(player1, false);
-        }
+
+        
+            // הגדרת נראות הדמויות
+            if (isPlayerOneTurn)
+            {
+                SetCharacterVisuals(player2, true);
+            }
+            else
+            {
+                SetCharacterVisuals(player1, false);
+            }
+        
+      
     }
 
 

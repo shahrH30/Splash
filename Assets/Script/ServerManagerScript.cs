@@ -30,7 +30,7 @@ public class ServerManagerScript : MonoBehaviour
 
         if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
         {
-            gameManager.TextErrorCode.text = "הקוד צריך להיות גדול מ-100.";
+            gameManager.TextErrorCode.text = "הקוד צריך להיות גדול מ 001";
             return;
         }
 
@@ -40,8 +40,7 @@ public class ServerManagerScript : MonoBehaviour
 
         if (UnityGame != null && UnityGame.questionList.Count > 0)
         {
-            UnityGame = ReverseNumbersInGameData(UnityGame);
-
+            UnityGame = ReverseNumbersAndEnglishInGameData(UnityGame);
             startButton.SetActive(false);
             codeInput.gameObject.SetActive(false);
             gameManager.GetGame(UnityGame);
@@ -185,32 +184,31 @@ public class ServerManagerScript : MonoBehaviour
     }
 
 
-    private GameData ReverseNumbersInGameData(GameData gameData)
+    private GameData ReverseNumbersAndEnglishInGameData(GameData gameData)
     {
-        gameData.gameName = ReverseNumbersInText(gameData.gameName);
+        gameData.gameName = ReverseNumbersAndEnglishInText(gameData.gameName);
         for (int i = 0; i < gameData.questionList.Count; i++)
         {
-            gameData.questionList[i].content = ReverseNumbersInText(gameData.questionList[i].content);
+            gameData.questionList[i].content = ReverseNumbersAndEnglishInText(gameData.questionList[i].content);
             for (int j = 0; j < gameData.questionList[i].answersList.Count; j++)
             {
                 if (!string.IsNullOrEmpty(gameData.questionList[i].answersList[j].textContent))
                 {
-                    gameData.questionList[i].answersList[j].textContent = ReverseNumbersInText(gameData.questionList[i].answersList[j].textContent);
+                    gameData.questionList[i].answersList[j].textContent = ReverseNumbersAndEnglishInText(gameData.questionList[i].answersList[j].textContent);
                 }
             }
         }
         return gameData;
     }
 
-
-    public static string ReverseNumbersInText(string input)
+    public static string ReverseNumbersAndEnglishInText(string input)
     {
         char[] chars = input.ToCharArray();
         int start = -1;
 
         for (int i = 0; i < chars.Length; i++)
         {
-            if (char.IsDigit(chars[i]))
+            if (char.IsDigit(chars[i]) || (chars[i] >= 'A' && chars[i] <= 'Z') || (chars[i] >= 'a' && chars[i] <= 'z'))
             {
                 if (start == -1)
                     start = i;
