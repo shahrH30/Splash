@@ -1224,10 +1224,11 @@ public class GameManagerScript : MonoBehaviour
     {
         answerOnScreen.ForEach(ans => ans.DisableAnsweringOption());// מנטרל את אפשרות התשובה לכל התשובות המוצגות על המסך
         answeredAnimIsPlaying = true;
+        float timeElapsed = (float)questionTimer.QuestionTime;
         //לין טווין שמזיז את הכדור ליעד התשובה שנבחר יוצר את האנימציה
         lt = LeanTween.move(playerTurn.throwBall, Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(chosenAnswer.BallTarget.position)), 1f).setOnComplete(() =>
         {
-            StartCoroutine(PresentAnswer(chosenAnswer));// פונקציה שמפעילה את המשוב רק לאחר סיום האנימציה!!
+            StartCoroutine(PresentAnswer(chosenAnswer, timeElapsed));// פונקציה שמפעילה את המשוב רק לאחר סיום האנימציה!!
             lt = null;// איפוס משתנה האנימציה
         });
         questionTimer.Stop();
@@ -1238,7 +1239,7 @@ public class GameManagerScript : MonoBehaviour
     // משמש ליצירת קורנטינות אשר מאפשר לבצע פעולות במשך זמן  
 
     private int index = 0;
-    IEnumerator PresentAnswer(AnswerBoxScript chosenAnswer)// הגדרת קורוטינה שמציגה משוב על התשובה שנבחרה
+    IEnumerator PresentAnswer(AnswerBoxScript chosenAnswer, float timePassed)// הגדרת קורוטינה שמציגה משוב על התשובה שנבחרה
     {
         yield return new WaitForSeconds(1f);// המתנה של שנייה אחת לפני המשך הפעולה
 
@@ -1246,7 +1247,7 @@ public class GameManagerScript : MonoBehaviour
         {
             chosenAnswer.Feedback();// הפעלת משוב על התשובה שנבחרה
 
-            playerTurn.AddScore(chosenAnswer.answerData.isCorrect, Mathf.Abs( game.questionTime - (float) questionTimer.QuestionTime));// עדכון הניקוד 
+            playerTurn.AddScore(chosenAnswer.answerData.isCorrect, timePassed);// עדכון הניקוד 
 
             if (chosenAnswer.answerData.isCorrect)
             {
@@ -1436,7 +1437,7 @@ public class GameManagerScript : MonoBehaviour
     public void AnswerTimeUp()//פונקציה שפועלת ברגע שנגמר הזמן למשתמש
     {
 
-        playerTurn.AddScore(false, Mathf.Abs( game.questionTime - (float)questionTimer.QuestionTime));// מוסיפים את הזמן שעבר לשחקן ושהוא טעה אוטומטית בשאלה לפונקצית הציון
+        playerTurn.AddScore(false, (float)questionTimer.QuestionTime);// מוסיפים את הזמן שעבר לשחקן ושהוא טעה אוטומטית בשאלה לפונקצית הציון
         TimeUpCanvas.SetActive(true);// מפעילים פופ אפ של נגמר הזמן
         DestroyAnswers();// הורסים את התשובות כדי ליצור אותן מחדש
 
