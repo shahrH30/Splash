@@ -374,22 +374,6 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
-
-
-    //public void CheckCodeGame()// פונקציה זו מבצעת בדיקה אם הקוד שהמשתמש הזין תואם לקוד הנדרש להתחלת המשחק
-    //{
-    //    if (GameInputFieldCodeTextStarte.text == "101")//בדיקה האם הקוד שהוזן תואם ל 101 
-    //    {
-    //        StartCoroutine(SwitchToChooseCharactersScreen());
-    //    }
-    //    else// אם לא הזינו קוד טוב יש משוב בהתאם
-    //    {
-    //        TextErrorCode.text = "נא להזין 101";// משוב שנכתב על המסך
-    //        GameInputFieldCodeTextStarte.text = string.Empty;// ניקוי תיבת הטקסט
-    //    }
-
-    //}
-
     
 
     IEnumerator SwitchToChooseCharactersScreen()
@@ -1939,11 +1923,12 @@ public void ResumeGame()
 
     public void ResetAndStartNewGame()// איפוס והתחלה של משחק חדש
     {
-        // עצירצת הסאונד
-        //musicAudioSource.Stop();
-        SFXAudioSource.Stop();
+		// עצירצת הסאונד
+		//musicAudioSource.Stop();
+		pausePopup.SetActive(false);// עצירת מסך הפופ אפ למקרה שהמסך הזה שלח אותנו 
 
-        ResetEndScreen();// איפוס מסך סופי
+		SFXAudioSource.Stop();
+		ResetEndScreen();// איפוס מסך סופי
         ResetWheel();// איפוס הכפתורים והגלגל
         ResetChoicePlayer();// איפוס של מסך בחירת דמויות 
         ResetActiveAnswerBalls();//ניקוי הכדורים של סימום תשובות נכונות
