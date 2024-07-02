@@ -128,6 +128,7 @@ public class GameManagerScript : MonoBehaviour
     [Header("before the end")]// הכנות לפני סוף משחק תהיה פה אנימציה
     [SerializeField] private GameObject BtnToTheEnd;// כפתור שלוחצים עליו מראה את המפסיד והמנצח
     [SerializeField] private GameObject ResultsBTN;// כפתור ששולח למסך סיכום
+    [SerializeField] private GameObject BRforTheFall;// כפתור ששולח למסך סיכום
     [SerializeField] private TextMeshProUGUI TextToTheEnd;// טקסט שמשתנה בסוף המשחק מבקש מהמשתמש להפיך את המפסיד למים
 
     [Header("location of the fall")]// מיקום הנפילה אחרי לחיצה על הכפתור
@@ -1476,6 +1477,7 @@ public class GameManagerScript : MonoBehaviour
     public void EndGame()// מעדכנת את נתוני המשחק הסופיים
     {
         BtnToTheEnd.SetActive(false);// הסתרת כפתור לסיום משחק
+        BRforTheFall.SetActive(true);
         //ResultsBTN.SetActive(true);// הצגת כפתור תוצאות
         standAnimator1.SetTrigger("EndAnim");
         standAnimator2.SetTrigger("EndAnim");
@@ -1537,9 +1539,14 @@ public class GameManagerScript : MonoBehaviour
                 //loser.transform.position = PlaseForMachP1.position;//אם כן משנים לו את המיקום על המסך
                 splashPlayer1.gameObject.SetActive(true);
                 standAnimator1.SetTrigger("Fall");
-                SplashWhenWrong1.gameObject.SetActive(true) ;
-                SplashWhenWrong1.Play("SplashWhenWrong");
+
+                //SplashWhenWrong1.gameObject.SetActive(true) ;
+                //SplashWhenWrong1.Play("SplashWhenWrong");
+
                 yield return new WaitForSeconds(SplashWhenWrong1.GetCurrentAnimatorClipInfo(0).Length);
+
+               
+
                 splashAnimator1.Play("Splash");
                 SplashWhenWrong1.gameObject.SetActive(false);
 
@@ -1550,15 +1557,18 @@ public class GameManagerScript : MonoBehaviour
                 splashPlayer2.gameObject.SetActive(true);
 
                 standAnimator2.SetTrigger("Fall");
-                SplashWhenWrong2.gameObject.SetActive(true);
-                SplashWhenWrong2.Play("SplashWhenWrong");
+
+                //SplashWhenWrong2.gameObject.SetActive(true);
+                //SplashWhenWrong2.Play("SplashWhenWrong");
+
                 yield return new WaitForSeconds(SplashWhenWrong2.GetCurrentAnimatorClipInfo(0).Length);
+
                 splashAnimator2.Play("Splash");
                 SplashWhenWrong2.gameObject.SetActive(false);
 
             }
 
-            loser.ChangeEmotion(CharacterStates.SadInBarrow);// שינוי מצב המפסיד
+            //loser.ChangeEmotion(CharacterStates.SadInBarrow);// שינוי מצב המפסיד
 
 
 
@@ -1573,11 +1583,11 @@ public class GameManagerScript : MonoBehaviour
             standAnimator1.SetTrigger("Fall");
             standAnimator2.SetTrigger("Fall");
 
-            SplashWhenWrong2.gameObject.SetActive(true);
-            SplashWhenWrong1.gameObject.SetActive(true);
+            //SplashWhenWrong2.gameObject.SetActive(true);
+            //SplashWhenWrong1.gameObject.SetActive(true);
 
-            SplashWhenWrong2.Play("SplashWhenWrong");
-            SplashWhenWrong1.Play("SplashWhenWrong");
+            //SplashWhenWrong2.Play("SplashWhenWrong");
+            //SplashWhenWrong1.Play("SplashWhenWrong");
 
             yield return new WaitForSeconds(SplashWhenWrong1.GetCurrentAnimatorClipInfo(0).Length);
             //splashPlayer1.SetActive(true);
@@ -1590,8 +1600,8 @@ public class GameManagerScript : MonoBehaviour
             SplashWhenWrong2.gameObject.SetActive(false);
             SplashWhenWrong1.gameObject.SetActive(false);
 
-            player1.ChangeEmotion(CharacterStates.SadInBarrow);
-            player2.ChangeEmotion(CharacterStates.SadInBarrow);
+            //player1.ChangeEmotion(CharacterStates.SadInBarrow);
+            //player2.ChangeEmotion(CharacterStates.SadInBarrow);
 
 
             //player1.transform.SetParent(player1.transform.root.root.root, true);
@@ -1604,12 +1614,13 @@ public class GameManagerScript : MonoBehaviour
             //StickStand2.SetActive(false);
 
             //שינוי המצב של הדמות
-            player1.ChangeEmotion(CharacterStates.SadInBarrow);
-            player2.ChangeEmotion(CharacterStates.SadInBarrow);
+            //player1.ChangeEmotion(CharacterStates.SadInBarrow);
+            //player2.ChangeEmotion(CharacterStates.SadInBarrow);
             //// שינוי מיקום השחקן על הבמה
             //player1.transform.position = PlaseForMachP1.position;
             //player2.transform.position = PlaseForMachP2.position;
             // משובים על המסך
+
             questionText.text = "יש פה תיקו!";
             TextToTheEnd.text = player1.playerName + " " + player2.playerName + " " + "אנחנו מקווים שהמים לא קרים מידי...";
         }
@@ -1631,6 +1642,8 @@ public class GameManagerScript : MonoBehaviour
     }
     private void SwitchToSummaryScreen()// החלפנ שלמסך של סיכום המשחק
     {
+        BRforTheFall.SetActive(false);
+
         DeactivateChildren(splashAnimator2.gameObject);
         DeactivateChildren(splashAnimator1.gameObject);
 
@@ -1726,7 +1739,8 @@ public class GameManagerScript : MonoBehaviour
 
         SummaryTextP2.text = player2.playerName + '\n' + "ציון: " + new string(player2.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player2.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player2.time).Reverse().ToArray());
 
-     
+        Debug.Log(player1.time +"שחקן 1");
+        Debug.Log(player2.time+"שחקן 2");
 
     }
 
