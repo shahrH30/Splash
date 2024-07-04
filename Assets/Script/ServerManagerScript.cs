@@ -17,9 +17,9 @@ public class ServerManagerScript : MonoBehaviour
     [SerializeField] GameManagerScript gameManager;
     [SerializeField] Sprite tempImage;
 
-    //string projectURL = "https://localhost:7022/"; //הנתיב לפרוייקט
+    string projectURL = "https://localhost:7022/"; //הנתיב לפרוייקט
 
-    string projectURL = "/../";//תיקייה אחורה
+    //string projectURL = "/../";//תיקייה אחורה
 
     string apiURL = "api/Unity/"; //הנתיב לקונטרולר שיצרתם
     //string imagesURL = "uploadedFiles/"; //הנתיב לתיקיית התמונות
@@ -27,50 +27,57 @@ public class ServerManagerScript : MonoBehaviour
 
     public async void CheckCode()
     {
-
-       
         string code = codeInput.text;
 
-        if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
+        if (code == "101")
         {
-            gameManager.TextErrorCode.text = "הקוד צריך להיות גדול מ 001";
+           gameManager.GetGame();
+
             return;
         }
+       
+        //string code = codeInput.text;
 
-        Debug.Log("loading");
+        //if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
+        //{
+        //    gameManager.TextErrorCode.text = "הקוד צריך להיות גדול מ 001";
+        //    return;
+        //}
 
-        GameData UnityGame = await GetDataFromServer(code);
+        //Debug.Log("loading");
 
-        if (UnityGame != null && UnityGame.questionList.Count > 0)
-        {
-            UnityGame = ReverseNumbersAndEnglishInGameData(UnityGame);
-            startButton.SetActive(false);
-            codeInput.gameObject.SetActive(false);
-            gameManager.GetGame(UnityGame);
-        }
-        else
-        {
-            if (UnityGame == null)
-            {
-                // בדיקה אם התשובה מהשרת מציינת שהמשחק לא קיים
-                string errorMessage = await GetServerErrorMessage(code);
+        //GameData UnityGame = await GetDataFromServer(code);
 
-                if (errorMessage.Contains("המשחק לא קיים"))
-                {
-                    gameManager.TextErrorCode.text = "המשחק לא קיים במערכת";
-                }
-                else if (errorMessage.Contains("המשחק לא פורסם"))
-                {
-                    gameManager.TextErrorCode.text = "המשחק קיים אך לא פורסם";
-                }
+        //if (UnityGame != null && UnityGame.questionList.Count > 0)
+        //{
+        //    UnityGame = ReverseNumbersAndEnglishInGameData(UnityGame);
+        //    startButton.SetActive(false);
+        //    codeInput.gameObject.SetActive(false);
+        //    gameManager.GetGame(UnityGame);
+        //}
+        //else
+        //{
+        //    if (UnityGame == null)
+        //    {
+        //        // בדיקה אם התשובה מהשרת מציינת שהמשחק לא קיים
+        //        string errorMessage = await GetServerErrorMessage(code);
+
+        //        if (errorMessage.Contains("המשחק לא קיים"))
+        //        {
+        //            gameManager.TextErrorCode.text = "המשחק לא קיים במערכת";
+        //        }
+        //        else if (errorMessage.Contains("המשחק לא פורסם"))
+        //        {
+        //            gameManager.TextErrorCode.text = "המשחק קיים אך לא פורסם";
+        //        }
               
-            }
+        //    }
 
-            Debug.LogError("content returns empty or null");
-            gameManager.GameInputFieldCodeTextStarte.text = string.Empty;
-            UnityGame = null;
-            return;
-        }
+        //    Debug.LogError("content returns empty or null");
+        //    gameManager.GameInputFieldCodeTextStarte.text = string.Empty;
+        //    UnityGame = null;
+        //    return;
+        //}
     }
 
 

@@ -265,10 +265,11 @@ public class GameManagerScript : MonoBehaviour
         EnterCodeGameScreen();// קריאה לפונקציה שמתחילה את המשחק
 
     }
-    public void GetGame(GameData gameFromServer)
+
+    public void GetGame(/*GameData gameFromServer*/)
     {
     
-        game = gameFromServer;
+        //game = gameFromServer;
         questionNumber = 0;
 
         //foreach (var question in game.questionList)
