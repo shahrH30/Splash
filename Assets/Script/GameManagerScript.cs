@@ -378,47 +378,47 @@ public class GameManagerScript : MonoBehaviour
     
 
     IEnumerator SwitchToChooseCharactersScreen()
-    {
-        startCanvas.SetActive(false);// סגירת הקאנבס של ההתחלה
-        soundToggleButton.gameObject.SetActive(true); // הפעל את הכפתור לשליטה על הסאונד
-        starttextabouve.SetActive(false);
-        starttextabelow.SetActive(false);
-        logo.SetActive(false);
-        BgSoundForStart.SetActive(true);
-        ChangeSoundOn(true);//מפעיל את הסאונד במי;דה והיה מושתק
-        musicAudioSource.Play();// מתחיל לנגן את המוזיקה ברקע
+        {
+            startCanvas.SetActive(false);// סגירת הקאנבס של ההתחלה
+            soundToggleButton.gameObject.SetActive(true); // הפעל את הכפתור לשליטה על הסאונד
+            starttextabouve.SetActive(false);
+            starttextabelow.SetActive(false);
+            logo.SetActive(false);
+            BgSoundForStart.SetActive(true);
+            ChangeSoundOn(true);//מפעיל את הסאונד במי;דה והיה מושתק
+            musicAudioSource.Play();// מתחיל לנגן את המוזיקה ברקע
 
-        //ChoosePlayers.SetActive(false);// הפעלת מסך בחירת דמויות
-        //ChoosePlayersCanvas.SetActive(false);// הפעלת קאנבס של בחירת דמויות
+            //ChoosePlayers.SetActive(false);// הפעלת מסך בחירת דמויות
+            //ChoosePlayersCanvas.SetActive(false);// הפעלת קאנבס של בחירת דמויות
 
-        parkAnimationContainer.LeanScale(Vector3.one, 1f);
+            parkAnimationContainer.LeanScale(Vector3.one, 1f);
 
-        parkAnimator.Play("StartScreenAnim");
-        spinningWheel.Play("Spin");
-        kidsAnim.Play("StartboyInBarrow");
-        Flag.Play("FlagMove");
-        chair2.Play("Chair2");
-        chair3.Play("Chair3");
-        chair4.Play("Chair4");
-        chair5.Play("Chair5");
-        Boy1InBarrowStart.Play("Boy1InBarrowStartNew");
+            parkAnimator.Play("StartScreenAnim");
+            spinningWheel.Play("Spin");
+            kidsAnim.Play("StartboyInBarrow");
+            Flag.Play("FlagMove");
+            chair2.Play("Chair2");
+            chair3.Play("Chair3");
+            chair4.Play("Chair4");
+            chair5.Play("Chair5");
+            Boy1InBarrowStart.Play("Boy1InBarrowStartNew");
 
 
         yield return new WaitForSeconds(4f);
 
        
 
-        parkAnimationContainer.LeanScale(Vector3.one * 2.5f, 2f);
+            parkAnimationContainer.LeanScale(Vector3.one * 2.5f, 2f);
 
-        SFXAudioSource.PlayOneShot(ChoosePlayerSound, 4f);// הפעלת מוזיקת רקע בלחיצה על אחד השחקנים
+            SFXAudioSource.PlayOneShot(ChoosePlayerSound, 4f);// הפעלת מוזיקת רקע בלחיצה על אחד השחקנים
 
         yield return new WaitForSeconds(4f);
 
         OnEvent e = new OnEvent(() => { 
-        StartScreen.SetActive(false);// סגירת המסך של ההתחלה 
-            ChoosePlayerScreen();// הפעלת פונקציה שמתחילה מסך בחירת דמויות
-        });
-        StartCoroutine( FadeOut(e));
+                StartScreen.SetActive(false);// סגירת המסך של ההתחלה 
+                ChoosePlayerScreen();// הפעלת פונקציה שמתחילה מסך בחירת דמויות
+            });
+            StartCoroutine( FadeOut(e));
 
 
     }
@@ -1940,7 +1940,7 @@ public void ResumeGame()
 		// עצירצת הסאונד
 		//musicAudioSource.Stop();
 		pausePopup.SetActive(false);// עצירת מסך הפופ אפ למקרה שהמסך הזה שלח אותנו 
-
+        questionTimer.Stop();
 		SFXAudioSource.Stop();
 		ResetEndScreen();// איפוס מסך סופי
         ResetWheel();// איפוס הכפתורים והגלגל
@@ -1952,6 +1952,11 @@ public void ResumeGame()
         EnterCodeGameScreen();  // חזרה למסך הראשון שמזינים קוד
     }
 
+    public void ResumeAndStartNewGame()
+    {
+        ResumeGame();
+        ResetAndStartNewGame();
+    }
     private void ResetGrades()
     {
         Debug.Log("איפוס הציונים לפני - שחקן 1: נכונות - " + player1.correctAnswers + ", לא נכונות - " + player1.incorrectAnswers);
@@ -2083,6 +2088,7 @@ public void ResumeGame()
         {
             Question.isAnswered = false;
         }
+        TimeUpCanvas.SetActive(false);
         DestroyAnswers();
     }
 
