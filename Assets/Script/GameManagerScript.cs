@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Device;
@@ -99,7 +98,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private HorizontalLayoutGroup answersGridGroupPrefab;
     [SerializeField] private GameObject nextQuesBTN;//כפתור לשאלה הבאה
     [SerializeField] private float distance;// משתנה לקביעת מרחק בין התשובות
-    [SerializeField] private AnimatorController questionAminController;
+    [SerializeField] private RuntimeAnimatorController questionAminController;
     private int questionNumber; //מעקב באיזה שאלה אני מתוך המשחק
     private TimeLimitTimer questionTimer = new TimeLimitTimer();//כמה זמן עבר מתחילת השאלה
     [SerializeField] private GameData game;// הפניה למחלקה שניצור בה את השאלות ותשובות מחוץ לקוד ונשתמש בה בקוד
@@ -221,7 +220,7 @@ public class GameManagerScript : MonoBehaviour
 
 
 
-    [SerializeField] private AnimatorController endingAnimatorController;
+    [SerializeField] private RuntimeAnimatorController endingAnimatorController;
    
 
 

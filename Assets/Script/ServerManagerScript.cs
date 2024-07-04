@@ -17,9 +17,12 @@ public class ServerManagerScript : MonoBehaviour
     [SerializeField] GameManagerScript gameManager;
     [SerializeField] Sprite tempImage;
 
-    string projectURL = "https://localhost:7022/"; //δπϊια μτψειιχθ
-    string apiURL = "api/Unity/"; //δπϊια μχεπθψεμψ ωιφψϊν
-    //string imagesURL = "uploadedFiles/"; //δπϊια μϊιχιιϊ δϊξεπεϊ
+    //string projectURL = "https://localhost:7022/"; //Χ”Χ ΧªΧ™Χ‘ ΧΧ¤Χ¨Χ•Χ™Χ™Χ§Χ
+
+    string projectURL = "/../";//ΧªΧ™Χ§Χ™Χ™Χ” ΧΧ—Χ•Χ¨Χ”
+
+    string apiURL = "api/Unity/"; //Χ”Χ ΧªΧ™Χ‘ ΧΧ§Χ•Χ ΧΧ¨Χ•ΧΧ¨ Χ©Χ™Χ¦Χ¨ΧªΧ
+    //string imagesURL = "uploadedFiles/"; //Χ”Χ ΧªΧ™Χ‘ ΧΧªΧ™Χ§Χ™Χ™Χª Χ”ΧªΧΧ•Χ Χ•Χª
 
 
     public async void CheckCode()
@@ -30,7 +33,7 @@ public class ServerManagerScript : MonoBehaviour
 
         if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
         {
-            gameManager.TextErrorCode.text = "δχεγ φψικ μδιεϊ βγεμ ξ 001";
+            gameManager.TextErrorCode.text = "Χ”Χ§Χ•Χ“ Χ¦Χ¨Χ™Χ ΧΧ”Χ™Χ•Χª Χ’Χ“Χ•Χ Χ 001";
             return;
         }
 
@@ -49,16 +52,16 @@ public class ServerManagerScript : MonoBehaviour
         {
             if (UnityGame == null)
             {
-                // αγιχδ ΰν δϊωεαδ ξδωψϊ ξφιιπϊ ωδξωηχ μΰ χιιν
+                // Χ‘Χ“Χ™Χ§Χ” ΧΧ Χ”ΧªΧ©Χ•Χ‘Χ” ΧΧ”Χ©Χ¨Χª ΧΧ¦Χ™Χ™Χ Χª Χ©Χ”ΧΧ©Χ—Χ§ ΧΧ Χ§Χ™Χ™Χ
                 string errorMessage = await GetServerErrorMessage(code);
 
-                if (errorMessage.Contains("δξωηχ μΰ χιιν"))
+                if (errorMessage.Contains("Χ”ΧΧ©Χ—Χ§ ΧΧ Χ§Χ™Χ™Χ"))
                 {
-                    gameManager.TextErrorCode.text = "δξωηχ μΰ χιιν αξςψλϊ";
+                    gameManager.TextErrorCode.text = "Χ”ΧΧ©Χ—Χ§ ΧΧ Χ§Χ™Χ™Χ Χ‘ΧΧΆΧ¨Χ›Χª";
                 }
-                else if (errorMessage.Contains("δξωηχ μΰ τεψρν"))
+                else if (errorMessage.Contains("Χ”ΧΧ©Χ—Χ§ ΧΧ Χ¤Χ•Χ¨Χ΅Χ"))
                 {
-                    gameManager.TextErrorCode.text = "δξωηχ χιιν ΰκ μΰ τεψρν";
+                    gameManager.TextErrorCode.text = "Χ”ΧΧ©Χ—Χ§ Χ§Χ™Χ™Χ ΧΧ ΧΧ Χ¤Χ•Χ¨Χ΅Χ";
                 }
               
             }
@@ -86,11 +89,11 @@ public class ServerManagerScript : MonoBehaviour
     async Task<GameData> GetDataFromServer(string code)
     {
         string endpoint = projectURL + apiURL + code;
-        using var http = UnityWebRequest.Get(endpoint); //ιφιψϊ αχωδ
-        var get = http.SendWebRequest(); //ωμιηδ
-        while (get.isDone == false) //λμ ςεγ μΰ ριιν
+        using var http = UnityWebRequest.Get(endpoint); //Χ™Χ¦Χ™Χ¨Χª Χ‘Χ§Χ©Χ”
+        var get = http.SendWebRequest(); //Χ©ΧΧ™Χ—Χ”
+        while (get.isDone == false) //Χ›Χ ΧΆΧ•Χ“ ΧΧ Χ΅Χ™Χ™Χ
         {
-            await Task.Yield(); //δωδιιδ ωμ δξωκ δχεγ
+            await Task.Yield(); //Χ”Χ©Χ”Χ™Χ™Χ” Χ©Χ Χ”ΧΧ©Χ Χ”Χ§Χ•Χ“
         }
         if (http.result == UnityWebRequest.Result.Success)
         {
@@ -135,7 +138,7 @@ public class ServerManagerScript : MonoBehaviour
             return UnityGame;
         }
 
-        else //ΰν μΰ δφμιη
+        else //ΧΧ ΧΧ Χ”Χ¦ΧΧ™Χ—
         {
             string errorMessage = http.downloadHandler.text;
             Debug.LogError(errorMessage);
