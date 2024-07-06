@@ -268,7 +268,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void GetGame(/*GameData gameFromServer*/)
     {
-    
+
         //game = gameFromServer;
         questionNumber = 0;
 
@@ -1108,9 +1108,14 @@ public class GameManagerScript : MonoBehaviour
         // הפעלת הטיימר לשאלה אם אנחנו לא במסך פאוז
         if (ResumeGameWasActiv == false)// הגדרת זמן השאלה
         {
+            Debug.Log("Resuming game: Starting question timer."); // Log when resuming the game
 
-            if(game.questionTime > 0)
-                questionTimer.Start(game.questionTime, () => {questionImagePanel.SetActive(false);// הזזת התמונות שלא 
+
+            if (game.questionTime > 0)
+                questionTimer.Start(game.questionTime, () => {
+                    Debug.Log("Question timer ended."); // Log when question timer ends
+
+                    questionImagePanel.SetActive(false);// הזזת התמונות שלא 
                 timerSpotPlayer1.SetActive(false);//כיבוי של מקום לשעון 
                 timerSpotPlayer2.SetActive(false);//כיבוי של מקום לשעון 
                 stopBTNAsBtn.interactable = false;
@@ -1429,6 +1434,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void AnswerTimeUp()//פונקציה שפועלת ברגע שנגמר הזמן למשתמש
     {
+        Debug.Log("Answer time is up."); // Log when answer time is up
 
         playerTurn.AddScore(false, (float)questionTimer.QuestionTime);// מוסיפים את הזמן שעבר לשחקן ושהוא טעה אוטומטית בשאלה לפונקצית הציון
         TimeUpCanvas.SetActive(true);// מפעילים פופ אפ של נגמר הזמן
@@ -1446,6 +1452,7 @@ public class GameManagerScript : MonoBehaviour
         //העלמת הגריד של הכדורים
         ShowBalls(false);
         questionTimer.Stop();
+        Debug.Log("Completed AnswerTimeUp execution."); // Log at the end of AnswerTimeUp execution
 
     }
 
@@ -1890,6 +1897,7 @@ public void ResumeGame()
 {
     stopBTNAsBtn.interactable = true;
     questionTimer.ResetTimer(); // איפוס הטיימר למצב ההתחלתי
+
     Time.timeScale = 1; // הפעלת הזמן במשחק שוב
     pausePopup.SetActive(false); // הסתרת פופאפ העצירה
     questionImagePanel.gameObject.SetActive(true); // הצגת הפאנל של התמונה

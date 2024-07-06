@@ -31,11 +31,11 @@ public class ServerManagerScript : MonoBehaviour
 
         if (code == "101")
         {
-           gameManager.GetGame();
+            gameManager.GetGame();
 
             return;
         }
-       
+
         //string code = codeInput.text;
 
         //if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
@@ -70,7 +70,7 @@ public class ServerManagerScript : MonoBehaviour
         //        {
         //            gameManager.TextErrorCode.text = "המשחק קיים אך לא פורסם";
         //        }
-              
+
         //    }
 
         //    Debug.LogError("content returns empty or null");
