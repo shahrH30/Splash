@@ -491,48 +491,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    //public void ChooseCharacter()//פונקציה של בחירת דמויות לשני השחקנים
-    //{
-
-    //    Button Character = CharactersButton.Find(Character => Character.gameObject.name.Contains(chosenCharacterName));// עוברים על כל אחד מהכפתורים של השחקנים ומחפשים את שם הדמות שנלחצה 
-    //    Character.interactable = false;// משביתים אותו כדי שלא יוכלו ללחוץ עליו שוב
-
-    //    ChangeButtonCharacterSprite(Character, characters.Find(character => character.name == chosenCharacterName).emotions.Find(e => e.emotion == CharacterStates.StandRegularForStart).sprite);// משנה את הספרייטי של השחקן שיהיה תואם לספריט של הדמות במסך הגרלה
-
-    //    if (player1 == null)// אם שחקן 1 עדיין לא נבחר
-    //    {
-    //        player1 = CreateCharacter();//שומר את המידע כשחקן 1
-    //        player1.Init(timerTextPlayer1, ThrowBallP1, answerBallRed.sprite);//מופע של הקלאס  שולחים נתונים ספציפים של שחקן 1 שדרושים למהלך המשחק כמו השם צבע הכדור והטיימר
-    //        chosenCharacterName = "";//מנקה את השם של הכפתור שנלחץ
-    //        TheNumberOfTheStartingPlayer.text = "שחקן שני";// טקסט שאומר שעכשיו התור של שחקן 2
-    //        BTNChoosePlayers.interactable = false;// מחזירים את הכפתור למצב לא פעיל
-    //        ChoosePlayerInputField.text = string.Empty;// מנקה את תיבת הטקסט
-    //    }
-    //    else if (player2 == null)// אם השחקן השני מוגדר כנול
-    //    {
-    //        if (ChoosePlayerInputField.text == player1.playerName)// בודק אם השם שנבחר זהה לשם של השחקן הקודם
-    //        {
-    //            TextErrorChoosePlayers.gameObject.SetActive(true);// מציג שגיאה
-    //            Character.interactable = true;// מחזיר את הכפתור של הדמות למצב פעיל
-    //            ChoosePlayerInputField.text = string.Empty;// מנקה את התיבת טקסט
-    //            return;//לא ממשיך את הפונקציה כדי שהמשתמש יזין שוב נתונים
-    //        }
-
-    //        // אם הזין שם שונה
-    //        player2 = CreateCharacter();//שומר את המידע כשחקן 2
-    //        player2.Init(timerTextPlayer2, ThrowBallP2, answerBallBlue.sprite);//מופע של הקלאס  שולחים נתונים ספציפים של שחקן2 שדרושים למהלך המשחק כמו השם צבע הכדור והטיימר
-    //        BTNChoosePlayers.GetComponentInChildren<TextMeshProUGUI>().text = "להגרלה";// משנים את טקסט הכפתור
-
-    //    }
-
-    //    checkClickChooseCarecter = false;// מבטלים את הכפתור
-    //    if (player1 != null && player2 != null)// אם שני השחקנים נבחרו מעבירים עם אותו כפתור את השחקנים להגרלה
-    //    {
-
-    //        StartParticipantLotteryScreen();// התחלת ההגרלה
-    //    }
-
-    //}
+   
 
     // פונקציה לבדיקת הקלט
     private void CheckInput(string input)
@@ -1113,7 +1072,7 @@ public class GameManagerScript : MonoBehaviour
 
             if (game.questionTime > 0)
                 questionTimer.Start(game.questionTime, () => {
-                    Debug.Log("Question timer ended."); // Log when question timer ends
+                    //Console.("Question timer ended."); // Log when question timer ends
 
                     questionImagePanel.SetActive(false);// הזזת התמונות שלא 
                 timerSpotPlayer1.SetActive(false);//כיבוי של מקום לשעון 
@@ -1271,6 +1230,8 @@ public class GameManagerScript : MonoBehaviour
         }
         else // אם יש עוד שאלות שלא נענו
         {
+            yield return new WaitForSeconds(1.5f);// המתנה של שנייה אחת לפני המשך הפעולה
+
             nextQuesBTN.gameObject.SetActive(true);// הפעלת הכפתור לשאלה הבאה
 
         }
@@ -1634,6 +1595,7 @@ public class GameManagerScript : MonoBehaviour
         // השמעת סאונד רקע של נפילה למים
         SFXAudioSource.PlayOneShot(fallWaterSound, 10f);
 
+        yield return new WaitForSeconds(1f);// המתנה של שנייה אחת לפני המשך הפעולה
         // הצגת הכפתור לאחר סיום האנימציה
         ResultsBTN.SetActive(true);
 
