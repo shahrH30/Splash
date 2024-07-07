@@ -728,7 +728,6 @@ public class GameManagerScript : MonoBehaviour
             //playerTurn.timerText.text = FormatTime((int)questionTime+1);// עדכון ויזואלי של טקסט הזמן לשחקן הנוכחי
 
 
-
         }
 
     }
@@ -1009,6 +1008,7 @@ public class GameManagerScript : MonoBehaviour
    
     private void CreateQuestion() // יצירת שאלה
     {
+        endingQuestion = false;
         ClearPreviousAnswers();
         questionNumber = 0; // איפוס מספר השאלה
 
@@ -1219,7 +1219,7 @@ public class GameManagerScript : MonoBehaviour
         }
 
         playerTurn.throwBall.SetActive(false);// מעלים את הכדור שזורקים
-        answeredAnimIsPlaying = false;
+        //answeredAnimIsPlaying = false;
 
         if (game.questionList.TrueForAll(q => q.isAnswered))// אם עברנו על כל השאלות וכולן נענו וקיבלו תשובה
         {
@@ -1230,14 +1230,14 @@ public class GameManagerScript : MonoBehaviour
         }
         else // אם יש עוד שאלות שלא נענו
         {
-            yield return new WaitForSeconds(1.5f);// המתנה של שנייה אחת לפני המשך הפעולה
+            yield return new WaitForSeconds(0.5f);// המתנה של שנייה אחת לפני המשך הפעולה
 
             nextQuesBTN.gameObject.SetActive(true);// הפעלת הכפתור לשאלה הבאה
 
         }
 
     }
-
+    bool endingQuestion = false;
     void GiveIncorrectAnswer()// פידבק אם טועים בתשובה
     {
         playerTurn.ChangeEmotion(CharacterStates.SittingUnHappy);// השחקן שמשחק לא שמח
@@ -1256,6 +1256,8 @@ public class GameManagerScript : MonoBehaviour
             TextBubble2.text = "אוף איזו טעות, ניפגש בסיבוב הבא";
             player2.ChangeEmotion(CharacterStates.SittingUnHappy);
         }
+        answeredAnimIsPlaying = false;
+        endingQuestion = true;
     }
     
     
@@ -1270,11 +1272,13 @@ public class GameManagerScript : MonoBehaviour
         // שמירת הזווית ההתחלתית
         float originalAngle = standObject.transform.eulerAngles.z;
 
-        standObject.GetComponent<Animator>().Play("BarrowRotateStart");
+        Animator barrowAnim = standObject.GetComponent<Animator>();
+        barrowAnim.Play("BarrowRotateStart");
         OnEvent onEndSplashAnim = new OnEvent(() =>
         {
             SplashWhenWrong1GameObject.SetActive(false);
             SplashWhenWrong2GameObject.SetActive(false);
+            answeredAnimIsPlaying = false;
         });
         if (SplashWhenWrong == SplashWhenWrong1)
         {
@@ -1821,7 +1825,8 @@ public class GameManagerScript : MonoBehaviour
 
         Time.timeScale = 0f; // הקפאת הזמן במשחק, עוצר את כל האנימציות והזמן
         questionTimer.Pause();
-
+        ShowPausePopup(); // הצגת פופאפ השהייה
+        
 
         if (nextQuesBTN.activeSelf)// אם כפתור השאלה הבאה פעיל
         {
@@ -1832,6 +1837,7 @@ public class GameManagerScript : MonoBehaviour
         }
         else // אם כפתור השאלה הבאה לא פעיל
         {
+            if (!endingQuestion) { 
             //timerActive = false; // הפסקת הטיימר של השאלה
             DestroyAnswers(); // השמדת תשובות השאלה הנוכחית
             playerTurn.throwBall.gameObject.transform.position = ThrowBallStartingPos.position;// החזרת כדור שזורקים למיקום התחלתי
@@ -1840,10 +1846,9 @@ public class GameManagerScript : MonoBehaviour
             {
                 lt.reset();// איפוס האנימציה
                 lt = null; // איפוס האובייקט של האנימציה
-            }
+            }}
         }
 
-        ShowPausePopup(); // הצגת פופאפ השהייה
 
     }
 
@@ -1858,7 +1863,6 @@ public class GameManagerScript : MonoBehaviour
 public void ResumeGame()
 {
     stopBTNAsBtn.interactable = true;
-    questionTimer.ResetTimer(); // איפוס הטיימר למצב ההתחלתי
 
     Time.timeScale = 1; // הפעלת הזמן במשחק שוב
     pausePopup.SetActive(false); // הסתרת פופאפ העצירה
@@ -1870,8 +1874,9 @@ public void ResumeGame()
         isBtnNextQuestionActiv = false; // איפוס המשתנה הבודק אם הכפתור היה פעיל
         answersGrid.gameObject.SetActive(true); // הצגת גריד התשובות
     }
-    else // אם הכפתור לא היה פעיל
+    else if(!endingQuestion) // אם הכפתור לא היה פעיל
     {
+        questionTimer.ResetTimer(); // איפוס הטיימר למצב ההתחלתי
         ResumeGameWasActiv = true;
         CreateQuestion(); // יצירת שאלה חדשה
         ShowBalls(true); // הצגת הכדור של השחקן
