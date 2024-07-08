@@ -53,16 +53,13 @@ public class TimeLimitTimer : Timer
         this.maxQuestionTime = maxQuestionTime;
         timer.Start();
         OnTimeCompleted = onTimeComplete;
-        TimeCompletionCheck = CheckContinuously();
+        GameManagerScript.ObjectInvoker.StartCoroutine(EndTimeInvoker(maxQuestionTime));
         active = true;
     }
 
-    private async Task CheckContinuously()
+    private IEnumerator EndTimeInvoker(float maxQuestionTime)
     {
-        while (timer.Elapsed.TotalSeconds < maxQuestionTime)
-        {
-            await Task.Delay(100); // Check every 100 milliseconds
-        }
+        yield return new WaitForSeconds(maxQuestionTime);
         OnTimeCompleted?.Invoke();
         Stop();
     }

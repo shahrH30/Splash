@@ -221,7 +221,9 @@ public class GameManagerScript : MonoBehaviour
 
 
     [SerializeField] private RuntimeAnimatorController endingAnimatorController;
-   
+    [Space]
+    [SerializeField] private MonoBehaviour objectInvoker;
+    public static MonoBehaviour ObjectInvoker;
 
 
 
@@ -261,6 +263,9 @@ public class GameManagerScript : MonoBehaviour
         chair1StartingPlace = chairStand1.transform.position;
         chair2StartingPlace = chairStand2.transform.position;
 
+        if (objectInvoker == null)
+            objectInvoker = this;
+        ObjectInvoker = objectInvoker;
  
         EnterCodeGameScreen();// קריאה לפונקציה שמתחילה את המשחק
 
@@ -1070,17 +1075,18 @@ public class GameManagerScript : MonoBehaviour
         {
             Debug.Log("Resuming game: Starting question timer."); // Log when resuming the game
 
-
+            OnEvent e = new OnEvent(
+                    delegate
+                    {
+                        //Console.("Question timer ended."); // Log when question timer ends
+                        AnswerTimeUp();
+                        questionImagePanel.SetActive(false);// הזזת התמונות שלא 
+                        timerSpotPlayer1.SetActive(false);//כיבוי של מקום לשעון 
+                        timerSpotPlayer2.SetActive(false);//כיבוי של מקום לשעון 
+                        stopBTNAsBtn.interactable = false;
+                    }); // שולח לפונקציה של סיון זמן בשאלה
             if (game.questionTime > 0)
-                questionTimer.Start(game.questionTime, () => {
-                    //Console.("Question timer ended."); // Log when question timer ends
-
-                    questionImagePanel.SetActive(false);// הזזת התמונות שלא 
-                timerSpotPlayer1.SetActive(false);//כיבוי של מקום לשעון 
-                timerSpotPlayer2.SetActive(false);//כיבוי של מקום לשעון 
-                stopBTNAsBtn.interactable = false;
-                AnswerTimeUp(); }// שולח לפונקציה של סיון זמן בשאלה
-                );
+                questionTimer.Start(game.questionTime, e);
             else
                 questionTimer.Start();
         }
