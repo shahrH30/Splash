@@ -769,7 +769,8 @@ public class GameManagerScript : MonoBehaviour
 
     void startGamAndQuestions()// פונקצייה שמתחילה את מסך השאלות
     {
-		Confety.Stop();
+        nextQuesBTN.gameObject.SetActive(false);// העלמת כפתור שאלה הבאה אם במקרה פעיל 
+        Confety.Stop();
 		SplashWhenWrong2GameObject.SetActive(false);
         SplashWhenWrong1GameObject.SetActive(false);
 
@@ -1929,6 +1930,7 @@ public void ResumeGame()
 
     public void ResumeAndStartNewGame()
     {
+        //nextQuesBTN.gameObject.SetActive(false);// העלמת כפתור שאלה הבאה אם במקרה פעיל 
         ResumeGame();
         ResetAndStartNewGame();
     }
