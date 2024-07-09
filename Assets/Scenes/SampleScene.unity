@@ -2800,7 +2800,7 @@ MonoBehaviour:
   questionAminController: {fileID: 9100000, guid: 5eaad63b78932284ab6a85392fe7fe88, type: 2}
   game:
     gameName: "\u05D2\u05D9\u05D0\u05D5\u05D2\u05E8\u05E4\u05D9\u05D4"
-    questionTime: 30
+    questionTime: 10
     questionList:
     - isAnswered: 0
       wrongUser: 0
@@ -3053,6 +3053,7 @@ MonoBehaviour:
   standAnimator2: {fileID: 734802566}
   SplashWhenWrong2GameObject: {fileID: 409297935}
   endingAnimatorController: {fileID: 9100000, guid: fb2a16fa1fa900d40904a45784010090, type: 2}
+  objectInvoker: {fileID: 0}
   splshAnimasion: {fileID: 1776967945}
   rotateAngle: 10
   rotateTime: 0.5
@@ -15344,7 +15345,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 332928382}
         m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
-        m_MethodName: EndQuestion
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

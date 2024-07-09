@@ -23,7 +23,7 @@ public class TimeLimitTimer : Timer
     private readonly Stopwatch timer = new Stopwatch();
     private OnEvent OnTimeCompleted;
 
-    private Task TimeCompletionCheck;
+    private Coroutine TimeCompletion;
     private bool active = false;
 
     public override bool CheckIfTimeLeft()
@@ -39,27 +39,33 @@ public class TimeLimitTimer : Timer
     {
         active = false;
         timer.Reset();
-        TimeCompletionCheck = null;
+        if(TimeCompletion != null)
+        {
+            GameManagerScript.ObjectInvoker.StopCoroutine(TimeCompletion);
+            TimeCompletion = null;
+        }
     }
 
     public override void Start()
     {
         active = true;
+        TimeCompletion = GameManagerScript.ObjectInvoker.StartCoroutine(EndTimeInvoker(maxQuestionTime));
         timer.Start();
     }
 
     public override void Start(float maxQuestionTime, OnEvent onTimeComplete)
     {
+        
         this.maxQuestionTime = maxQuestionTime;
-        timer.Start();
+        ResetTimer();
         OnTimeCompleted = onTimeComplete;
-        GameManagerScript.ObjectInvoker.StartCoroutine(EndTimeInvoker(maxQuestionTime));
+        TimeCompletion = GameManagerScript.ObjectInvoker.StartCoroutine(EndTimeInvoker(maxQuestionTime));
         active = true;
     }
 
     private IEnumerator EndTimeInvoker(float maxQuestionTime)
     {
-        yield return new WaitForSeconds(maxQuestionTime);
+        yield return new WaitForSeconds(maxQuestionTime - (float)QuestionTime);
         OnTimeCompleted?.Invoke();
         Stop();
     }
@@ -67,12 +73,16 @@ public class TimeLimitTimer : Timer
     public override void Pause()
     {
         active = false;
+        if(TimeCompletion != null)
+            GameManagerScript.ObjectInvoker.StopCoroutine(TimeCompletion);
         timer.Stop();
     }
 
     public void ResetTimer()
     {
         timer.Reset();
+        if(TimeCompletion != null)
+            GameManagerScript.ObjectInvoker.StopCoroutine(TimeCompletion);
         timer.Start();
     }
 }

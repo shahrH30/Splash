@@ -165,7 +165,7 @@ public class GameManagerScript : MonoBehaviour
     //private float savedTimeRemaining;
     [SerializeField] private GameObject pausePopup;// פופ אפ של עצירת משחק
     [SerializeField] private Button resumeButton; // כפתור להמשך המשחק מהפופ אפ
-    bool isBtnNextQuestionActiv = false;// בדיקה אם אנחנו לא במשוב של סוף שאלה ואז מפעילים א=רק חלק מהדברים
+    bool isBtnNextQuestionActiv { get => !nextQuesBTN.activeSelf; }// בדיקה אם אנחנו לא במשוב של סוף שאלה ואז מפעילים א=רק חלק מהדברים
     bool ResumeGameWasActiv = false;// בדיקה אם כפתור הפאוז הביא אותנו למסך יצירת שאלות
 
     [Header("sound")]//שמע במשחק
@@ -1070,9 +1070,7 @@ public class GameManagerScript : MonoBehaviour
             CreateAnswersGrid(currentQuestion, 3);
         }
 
-        // הפעלת הטיימר לשאלה אם אנחנו לא במסך פאוז
-        if (ResumeGameWasActiv == false)// הגדרת זמן השאלה
-        {
+        
             Debug.Log("Resuming game: Starting question timer."); // Log when resuming the game
 
             OnEvent e = new OnEvent(
@@ -1089,9 +1087,7 @@ public class GameManagerScript : MonoBehaviour
                 questionTimer.Start(game.questionTime, e);
             else
                 questionTimer.Start();
-        }
-
-        ResumeGameWasActiv = false;
+        
     }
 
 
@@ -1448,7 +1444,6 @@ public class GameManagerScript : MonoBehaviour
         DestroyAnswers();// הורס את התשובות
         PassNextTurn();// מעביר תור לשחקן הבא
         CreateQuestion();// יוצר שאלות
-        TimeUpCanvas.SetActive(false);//סוגר את הפופ אפ של נגמר הזמן אם נפתח
 
     }
 
@@ -1838,7 +1833,6 @@ public class GameManagerScript : MonoBehaviour
         if (nextQuesBTN.activeSelf)// אם כפתור השאלה הבאה פעיל
         {
             nextQuesBTN.SetActive(false); // הפסקת הצגת כפתור השאלה הבאה
-            isBtnNextQuestionActiv = true;//  סימון שכפתור השאלה הבאה היה פעיל
             //answersGrid.gameObject.SetActive(false);// הסתרת גריד התשובות
             //answersBallsGrid.gameObject.SetActive(false);// הסתרת גריד כדורים
         }
@@ -1867,28 +1861,28 @@ public class GameManagerScript : MonoBehaviour
     }
 
 
-public void ResumeGame()
-{
-    stopBTNAsBtn.interactable = true;
-
-    Time.timeScale = 1; // הפעלת הזמן במשחק שוב
-    pausePopup.SetActive(false); // הסתרת פופאפ העצירה
-    questionImagePanel.gameObject.SetActive(true); // הצגת הפאנל של התמונה
-
-    if (isBtnNextQuestionActiv) // אם כפתור השאלה הבאה היה פעיל בתחילת העצירה
+    public void ResumeGame()
     {
-        nextQuesBTN.SetActive(true); // הפעלת כפתור השאלה הבאה
-        isBtnNextQuestionActiv = false; // איפוס המשתנה הבודק אם הכפתור היה פעיל
-        answersGrid.gameObject.SetActive(true); // הצגת גריד התשובות
-    }
-    else if(!endingQuestion) // אם הכפתור לא היה פעיל
-    {
-        questionTimer.ResetTimer(); // איפוס הטיימר למצב ההתחלתי
         ResumeGameWasActiv = true;
-        CreateQuestion(); // יצירת שאלה חדשה
-        ShowBalls(true); // הצגת הכדור של השחקן
+
+        stopBTNAsBtn.interactable = true;
+        Time.timeScale = 1; // הפעלת הזמן במשחק שוב
+        pausePopup.SetActive(false); // הסתרת פופאפ העצירה
+        questionImagePanel.gameObject.SetActive(true); // הצגת הפאנל של התמונה
+
+        if (endingQuestion) // אם כפתור השאלה הבאה היה פעיל בתחילת העצירה
+        {
+            nextQuesBTN.SetActive(true); // הפעלת כפתור השאלה הבאה
+            answersGrid.gameObject.SetActive(true); // הצגת גריד התשובות
+        }
+        if(!endingQuestion) 
+        {
+            DestroyAnswers();
+            CreateQuestion(); // יצירת שאלה חדשה
+            ShowBalls(true); // הצגת הכדור של השחקן
+        }
+        ResumeGameWasActiv = false;
     }
-}
 
     private void ShowBalls(bool show)// פונקציה שמשמשת להפעיל או לכבוד את גריד הכדורים והכדורים ברגע שפופ אפ נסגר או נפתח
     {
