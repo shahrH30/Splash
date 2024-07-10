@@ -1343,6 +1343,7 @@ public class GameManagerScript : MonoBehaviour
             SpeechBubble2.SetActive(true);
             TextBubble2.text = "איזה כיף!  \n" + player1.playerName + ", " + "זהירות רק לא ליפול!";/// לא 
         }
+        endingQuestion = true;
     }
     void PrepareForEndGame()// הכנה למסך אנימציה העתידי שהשחקן שהפסיד נופל
     {
@@ -1877,9 +1878,7 @@ public class GameManagerScript : MonoBehaviour
         }
         if(!endingQuestion) 
         {
-            DestroyAnswers();
-            CreateQuestion(); // יצירת שאלה חדשה
-            ShowBalls(true); // הצגת הכדור של השחקן
+            EndQuestion();
         }
         ResumeGameWasActiv = false;
     }
