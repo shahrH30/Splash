@@ -1014,7 +1014,6 @@ public class GameManagerScript : MonoBehaviour
    
     private void CreateQuestion() // יצירת שאלה
     {
-        endingQuestion = false;
         ClearPreviousAnswers();
         questionNumber = 0; // איפוס מספר השאלה
 
@@ -1087,12 +1086,13 @@ public class GameManagerScript : MonoBehaviour
                 questionTimer.Start(game.questionTime, e);
             else
                 questionTimer.Start();
-        
+
+        endingQuestion = false;
     }
 
 
 
- 
+
     List<HorizontalLayoutGroup> answersLayoutGroups = new List<HorizontalLayoutGroup>();//  רשימה ששומרת את התשובות  כדי שנוכל למחוק אותן בעתיד כדי להתחיל מחדש 
     void CreateAnswersGrid(QuestionData currentQuestion, int rowSize)// יצירת הגריד של התשובות בהתאם לכמות התשובות שצריכות להיות בשורה
     {
@@ -1431,7 +1431,7 @@ public class GameManagerScript : MonoBehaviour
         return activeAnswerBalls[game.questionList.Count(q => q.isAnswered) - 1];
     }
 
-    public void EndQuestion()// מנהלת את תהליך סיום השאלה והתגובה והכנה לשאלה הבאה
+    public void EndQuestion(bool resumed)// מנהלת את תהליך סיום השאלה והתגובה והכנה לשאלה הבאה
     {
         stopBTNAsBtn.interactable = true;// פעיל את הפאוז שוב אם כיבינו אותו
         questionImagePanel.SetActive(true);// מדליק את הפאנל של השאלות אם סגרנו בטעות שאלה לפני בפופ אפ
@@ -1443,7 +1443,12 @@ public class GameManagerScript : MonoBehaviour
         }
 
         DestroyAnswers();// הורס את התשובות
-        PassNextTurn();// מעביר תור לשחקן הבא
+
+        if(!resumed)
+            PassNextTurn();// מעביר תור לשחקן הבא
+        else
+            HandleVisualOfCurrentTurn();
+
         CreateQuestion();// יוצר שאלות
 
     }
@@ -1878,7 +1883,7 @@ public class GameManagerScript : MonoBehaviour
         }
         if(!endingQuestion) 
         {
-            EndQuestion();
+            EndQuestion(true);
         }
         ResumeGameWasActiv = false;
     }
