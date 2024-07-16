@@ -1699,7 +1699,7 @@ public class GameManagerScript : MonoBehaviour
         OnlyOneWinText.gameObject.SetActive(true);// הפעלת הטקסט שמודיע על ניצחון של שחקן אחד בלבד
 
         // עדכון הטקסט של סיכום המשחק עם שמות השחקנים והודעה על הניצחון
-        SummaryTextWiner.text = winner.playerName + " הצליח/הצליחה" + '\n' + "להפיל את " + loser.playerName + '\n' + "למים!";
+        SummaryTextWiner.text = winner.playerName + " הצליח/ה" + '\n' + "להפיל את " + loser.playerName + '\n' + "למים!";
     }
 
     private void SetTieState()// עידכון מצב תיקו
@@ -1716,9 +1716,9 @@ public class GameManagerScript : MonoBehaviour
 
     private void UpdateSummaryTexts()// עדכון ציונים של המשתתפים
     {
-        SummaryTextP1.text = player1.playerName + '\n' + "ציון: " + new string(player1.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player1.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player1.time).Reverse().ToArray());
+        SummaryTextP1.text = "<b>" + player1.playerName + "</b>" + '\n' + "ציון: " + new string(player1.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player1.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player1.time).Reverse().ToArray());
 
-        SummaryTextP2.text = player2.playerName + '\n' + "ציון: " + new string(player2.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player2.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player2.time).Reverse().ToArray());
+        SummaryTextP2.text = "<b>" + player1.playerName + "</b>" + '\n' + "ציון: " + new string(player2.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player2.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player2.time).Reverse().ToArray());
 
         Debug.Log(player1.time +"שחקן 1");
         Debug.Log(player2.time+"שחקן 2");
@@ -1996,7 +1996,7 @@ public class GameManagerScript : MonoBehaviour
 
         wheelTexts.Clear(); // ניקוי הרשימה של טקסטים על הגלגל
 
-        WheelWinnerTitle.text = "לחצו על הגלגל כדי להגריל \nאת השחקן הראשון";//איפוס טקסט כותרת
+        WheelWinnerTitle.text = "לחצו על הגלגל להגרלת \nהשחקן הראשון";//איפוס טקסט כותרת
         WheelWinnerTitle.fontSize = 3.8f;// הגדלת גודל הטקסט של הכותרת
 
         BTNRandomWheel.transform.rotation = Quaternion.identity; //  איפוס סיבוב הגלגל למצב התחלתי
