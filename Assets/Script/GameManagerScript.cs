@@ -1085,7 +1085,7 @@ public class GameManagerScript : MonoBehaviour
             if (game.questionTime > 0)
                 questionTimer.Start(game.questionTime, e);
             else
-                questionTimer.Start();
+                questionTimer.ResetTimer();
 
         endingQuestion = false;
     }
@@ -1397,7 +1397,8 @@ public class GameManagerScript : MonoBehaviour
 
         BtnToTheEnd.gameObject.SetActive(true);// הפעלת כפתור
         TextToTheEnd.text = "לחצו כדי להפיל את המפסיד למים";
-
+        print("player 1 score:\n " + "name: " + player1.playerName + "\ntime: " + player1.time + "\ncorrect answers: " + player1.correctAnswers + "\nincorrect answers: " + player1.incorrectAnswers + "\n\n" +
+              "player 2 score:\n " + "name: " + player2.playerName + "\ntime: " + player2.time + "\ncorrect answers: " + player2.correctAnswers + "\nincorrect answers: " + player2.incorrectAnswers);
         DestroyAnswers();// פונקציה להרס השאלה
     }
 
@@ -1420,7 +1421,6 @@ public class GameManagerScript : MonoBehaviour
 
         //העלמת הגריד של הכדורים
         ShowBalls(false);
-        questionTimer.Stop();
         Debug.Log("Completed AnswerTimeUp execution."); // Log at the end of AnswerTimeUp execution
 
     }
@@ -1718,7 +1718,7 @@ public class GameManagerScript : MonoBehaviour
     {
         SummaryTextP1.text = "<b>" + player1.playerName + "</b>" + '\n' + "ציון: " + new string(player1.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player1.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player1.time).Reverse().ToArray());
 
-        SummaryTextP2.text = "<b>" + player1.playerName + "</b>" + '\n' + "ציון: " + new string(player2.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player2.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player2.time).Reverse().ToArray());
+        SummaryTextP2.text = "<b>" + player2.playerName + "</b>" + '\n' + "ציון: " + new string(player2.Finalgradecalculation().ToString().Reverse().ToArray()) + '\n' + "מספר שגיאות: " + new string(player2.incorrectAnswers.ToString().Reverse().ToArray()) + '\n' + "זמן כולל: " + new string(FormatTime((int)player2.time).Reverse().ToArray());
 
         Debug.Log(player1.time +"שחקן 1");
         Debug.Log(player2.time+"שחקן 2");
