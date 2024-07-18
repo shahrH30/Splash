@@ -1015,6 +1015,7 @@ public class GameManagerScript : MonoBehaviour
     private void CreateQuestion() // יצירת שאלה
     {
         ClearPreviousAnswers();
+
         questionNumber = 0; // איפוס מספר השאלה
 
         game.questionList = RandomizeQuestions(game.questionList); // ערבוב רשימת השאלות בצורה אקראית
@@ -1033,6 +1034,7 @@ public class GameManagerScript : MonoBehaviour
         }
 
         TitleGameSub.text = game.gameName; // כותרת של נושא המשחק
+        QuestionImage.gameObject.transform.localScale = originalScale;
 
         // מציאת השאלה הראשונה שלא נענתה
         for (int i = 0; i < game.questionList.Count; i++)
@@ -1082,6 +1084,7 @@ public class GameManagerScript : MonoBehaviour
                         timerSpotPlayer2.SetActive(false);//כיבוי של מקום לשעון 
                         stopBTNAsBtn.interactable = false;
                     }); // שולח לפונקציה של סיון זמן בשאלה
+
             if (game.questionTime > 0)
                 questionTimer.Start(game.questionTime, e);
             else
@@ -1906,7 +1909,7 @@ public class GameManagerScript : MonoBehaviour
         ResetWheel();// איפוס מסך הגלגל
         ResetGrades();// איפוס ציון לכל שחקן
 
-        ChangeSoundOn(true);//מפעיל את הסאונד במידה והיה מושתק
+        //ChangeSoundOn(true);//מפעיל את הסאונד במידה והיה מושתק
         musicAudioSource.Play();// מתחיל לנגן את המוזיקה ברקע
 
         StartParticipantLotteryScreen(); // חזרה למסך הגרלב

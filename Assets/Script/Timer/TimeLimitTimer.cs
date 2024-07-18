@@ -12,9 +12,9 @@ public class TimeLimitTimer : Timer
     public override double QuestionTime => timer.Elapsed.Seconds;
 
     private float maxQuestionTime;
-    public override float MaxQuestionTime
+    public override float MaxQuestionTime //משתנה שהוא פונקציה
     {
-        get => maxQuestionTime;
+        get => maxQuestionTime; 
         set { if (!active) maxQuestionTime = value; }
     }
 
