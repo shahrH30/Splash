@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 public class TimeLimitTimer : Timer
 {
-    public override double QuestionTime => timer.Elapsed.Seconds;
+    public override double QuestionTime => timer.Elapsed.TotalSeconds;
 
     private float maxQuestionTime;
     public override float MaxQuestionTime //משתנה שהוא פונקציה

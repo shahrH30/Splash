@@ -1943,19 +1943,8 @@ public class GameManagerScript : MonoBehaviour
     }
     private void ResetGrades()
     {
-        Debug.Log("איפוס הציונים לפני - שחקן 1: נכונות - " + player1.correctAnswers + ", לא נכונות - " + player1.incorrectAnswers);
-        Debug.Log("איפוס הציונים לפני - שחקן 2: נכונות - " + player2.correctAnswers + ", לא נכונות - " + player2.incorrectAnswers);
-
-        player1.correctAnswers = 0;
-        player1.incorrectAnswers = 0;
-        player1.time = 0;
-
-        player2.correctAnswers = 0;
-        player2.incorrectAnswers = 0;
-        player2.time = 0;
-
-        Debug.Log("איפוס הציונים אחרי - שחקן 1: נכונות - " + player1.correctAnswers + ", לא נכונות - " + player1.incorrectAnswers);
-        Debug.Log("איפוס הציונים אחרי - שחקן 2: נכונות - " + player2.correctAnswers + ", לא נכונות - " + player2.incorrectAnswers);
+        player1.ResetScore();
+        player2.ResetScore();
     }
 
 

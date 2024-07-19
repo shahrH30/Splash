@@ -89,7 +89,12 @@ public class CharactersScript : MonoBehaviour
         Debug.Log(score);
         return (int)score;
     }
-
+    public void ResetScore()
+    {
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        time = 0;
+    }
 }
  
 public enum CharacterStates { HappyInBarrow, SadInBarrow, SittingHappy,SittingRegular,SittingSmile,SittingSuprise,SittingUnHappy,StandHappy,StandRegular,StandSmile,Empty, StandRegularForStart,StandHappyForStart }//יצירת רשימת מצבים שאחריה נקשר את המצבים של הדמות אליהם
