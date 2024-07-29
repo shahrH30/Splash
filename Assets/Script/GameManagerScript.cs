@@ -271,20 +271,11 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
-    public void GetGame(/*GameData gameFromServer*/)
+    public void GetGame(GameData gameFromServer)
     {
-
-        //game = gameFromServer;
+        game = null;
+        game = gameFromServer;
         questionNumber = 0;
-
-        //foreach (var question in game.questionList)
-        //{
-        //    Debug.Log("Question: " + question.content);
-        //    foreach (var answer in question.answersList)
-        //    {
-        //        Debug.Log("Answer: " + (answer.isCorrect ? "(Correct) " : "") + (answer.textContent ?? "No Text") + (answer.imageContent != null ? " (Image)" : ""));
-        //    }
-        //}
 
         //InitializeQuestions();
         TextErrorCode.text = ""; // משוב שנכתב על המסך

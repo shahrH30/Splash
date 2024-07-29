@@ -17,9 +17,9 @@ public class ServerManagerScript : MonoBehaviour
     [SerializeField] GameManagerScript gameManager;
     [SerializeField] Sprite tempImage;
 
-    string projectURL = "https://localhost:7022/"; //הנתיב לפרוייקט
+    //string projectURL = "https://localhost:7022/"; //הנתיב לפרוייקט
 
-    //string projectURL = "/../";//תיקייה אחורה
+    string projectURL = "./../";//הנתיב למחולל
 
     string apiURL = "api/Unity/"; //הנתיב לקונטרולר שיצרתם
     //string imagesURL = "uploadedFiles/"; //הנתיב לתיקיית התמונות
@@ -27,57 +27,49 @@ public class ServerManagerScript : MonoBehaviour
 
     public async void CheckCode()
     {
+
         string code = codeInput.text;
 
-        if (code == "101")
+        if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
         {
-            gameManager.GetGame();
-
+            gameManager.TextErrorCode.text = "הקוד צריך להיות גדול מ 001";
             return;
         }
 
-        //string code = codeInput.text;
+        Debug.Log("loading");
 
-        //if (int.TryParse(code, out int parsedCode) && parsedCode <= 100)
-        //{
-        //    gameManager.TextErrorCode.text = "הקוד צריך להיות גדול מ 001";
-        //    return;
-        //}
+        GameData UnityGame = await GetDataFromServer(code);
 
-        //Debug.Log("loading");
+        if (UnityGame != null && UnityGame.questionList.Count > 0)
+        {
+            UnityGame = ReverseNumbersAndEnglishInGameData(UnityGame);
+            startButton.SetActive(false);
+            codeInput.gameObject.SetActive(false);
+            gameManager.GetGame(UnityGame);
+        }
+        else
+        {
+            if (UnityGame == null)
+            {
+                // בדיקה אם התשובה מהשרת מציינת שהמשחק לא קיים
+                string errorMessage = await GetServerErrorMessage(code);
 
-        //GameData UnityGame = await GetDataFromServer(code);
+                if (errorMessage.Contains("המשחק לא קיים"))
+                {
+                    gameManager.TextErrorCode.text = "המשחק לא קיים במערכת";
+                }
+                else if (errorMessage.Contains("המשחק לא פורסם"))
+                {
+                    gameManager.TextErrorCode.text = "המשחק קיים אך לא פורסם";
+                }
 
-        //if (UnityGame != null && UnityGame.questionList.Count > 0)
-        //{
-        //    UnityGame = ReverseNumbersAndEnglishInGameData(UnityGame);
-        //    startButton.SetActive(false);
-        //    codeInput.gameObject.SetActive(false);
-        //    gameManager.GetGame(UnityGame);
-        //}
-        //else
-        //{
-        //    if (UnityGame == null)
-        //    {
-        //        // בדיקה אם התשובה מהשרת מציינת שהמשחק לא קיים
-        //        string errorMessage = await GetServerErrorMessage(code);
+            }
 
-        //        if (errorMessage.Contains("המשחק לא קיים"))
-        //        {
-        //            gameManager.TextErrorCode.text = "המשחק לא קיים במערכת";
-        //        }
-        //        else if (errorMessage.Contains("המשחק לא פורסם"))
-        //        {
-        //            gameManager.TextErrorCode.text = "המשחק קיים אך לא פורסם";
-        //        }
-
-        //    }
-
-        //    Debug.LogError("content returns empty or null");
-        //    gameManager.GameInputFieldCodeTextStarte.text = string.Empty;
-        //    UnityGame = null;
-        //    return;
-        //}
+            Debug.LogError("content returns empty or null");
+            gameManager.GameInputFieldCodeTextStarte.text = string.Empty;
+            UnityGame = null;
+            return;
+        }
     }
 
 
@@ -196,29 +188,32 @@ public class ServerManagerScript : MonoBehaviour
 
     private GameData ReverseNumbersAndEnglishInGameData(GameData gameData)
     {
-        gameData.gameName = ReverseNumbersAndEnglishInText(gameData.gameName);
+        gameData.gameName = ReverseNumbersEnglishAndPunctuationInText(gameData.gameName);
         for (int i = 0; i < gameData.questionList.Count; i++)
         {
-            gameData.questionList[i].content = ReverseNumbersAndEnglishInText(gameData.questionList[i].content);
+            gameData.questionList[i].content = ReverseNumbersEnglishAndPunctuationInText(gameData.questionList[i].content);
             for (int j = 0; j < gameData.questionList[i].answersList.Count; j++)
             {
                 if (!string.IsNullOrEmpty(gameData.questionList[i].answersList[j].textContent))
                 {
-                    gameData.questionList[i].answersList[j].textContent = ReverseNumbersAndEnglishInText(gameData.questionList[i].answersList[j].textContent);
+                    gameData.questionList[i].answersList[j].textContent = ReverseNumbersEnglishAndPunctuationInText(gameData.questionList[i].answersList[j].textContent);
                 }
             }
         }
         return gameData;
     }
 
-    public static string ReverseNumbersAndEnglishInText(string input)
+    public static string ReverseNumbersEnglishAndPunctuationInText(string input)
     {
         char[] chars = input.ToCharArray();
         int start = -1;
 
         for (int i = 0; i < chars.Length; i++)
         {
-            if (char.IsDigit(chars[i]) || (chars[i] >= 'A' && chars[i] <= 'Z') || (chars[i] >= 'a' && chars[i] <= 'z'))
+            if (char.IsDigit(chars[i]) ||
+                (chars[i] >= 'A' && chars[i] <= 'Z') ||
+                (chars[i] >= 'a' && chars[i] <= 'z') ||
+                chars[i] == '(' || chars[i] == ')')
             {
                 if (start == -1)
                     start = i;
@@ -227,7 +222,7 @@ public class ServerManagerScript : MonoBehaviour
             {
                 if (start != -1)
                 {
-                    Array.Reverse(chars, start, i - start);
+                    ReverseChars(chars, start, i - start);
                     start = -1;
                 }
             }
@@ -235,11 +230,46 @@ public class ServerManagerScript : MonoBehaviour
 
         if (start != -1)
         {
-            Array.Reverse(chars, start, chars.Length - start);
+            ReverseChars(chars, start, chars.Length - start);
         }
 
         return new string(chars);
     }
+
+    private static void ReverseChars(char[] chars, int start, int length)
+    {
+        int end = start + length - 1;
+        while (start < end)
+        {
+            if (chars[start] == '(')
+                chars[start] = ')';
+            else if (chars[start] == ')')
+                chars[start] = '(';
+
+            if (chars[end] == '(')
+                chars[end] = ')';
+            else if (chars[end] == ')')
+                chars[end] = '(';
+
+            // Swap characters
+            char temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp;
+
+            start++;
+            end--;
+        }
+
+        // Handle the case when start == end for odd length segments
+        if (start == end)
+        {
+            if (chars[start] == '(')
+                chars[start] = ')';
+            else if (chars[start] == ')')
+                chars[start] = '(';
+        }
+    }
+
 
 
 

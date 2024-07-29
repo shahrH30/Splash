@@ -1592,94 +1592,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &211302482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 211302483}
-  - component: {fileID: 211302484}
-  m_Layer: 0
-  m_Name: BgSoundPlayersRandom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &211302483
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 211302482}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 410776823}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.34, y: 3.9199998}
-  m_SizeDelta: {x: 0.62, y: 0.55}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &211302484
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 211302482}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -189627893
-  m_SortingLayer: 1
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 27f1468c9c073df469ad6528830eb9ac, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.62, y: 0.55}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &216477238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,6 +1722,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000030518, y: -0.000045776}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &231161632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231161633}
+  - component: {fileID: 231161635}
+  - component: {fileID: 231161634}
+  m_Layer: 5
+  m_Name: soundPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &231161633
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231161632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1110518836}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -550.44, y: 232.26999}
+  m_SizeDelta: {x: 75.13, y: 69.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &231161634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231161632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 27f1468c9c073df469ad6528830eb9ac, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &231161635
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231161632}
+  m_CullTransparentMesh: 1
 --- !u!1 &236307671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,189 +2874,9 @@ MonoBehaviour:
   distance: 3
   questionAminController: {fileID: 9100000, guid: 5eaad63b78932284ab6a85392fe7fe88, type: 2}
   game:
-    gameName: "\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9"
-    questionTime: 0
-    questionList:
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D4\u05D9 \u05D4\u05E2\u05D9\u05E8 \u05D4\u05E6\u05E4\u05D5\u05E0\u05D9\u05EA
-        \u05D1\u05D9\u05D5\u05EA\u05E8 \u05D1\u05D9\u05E9\u05E8\u05D0\u05DC?1998"
-      imageContent: {fileID: 21300000, guid: bb34bf0b41eef394f886ee53dfddf937, type: 3}
-      answersList:
-      - textContent: "\u05DE\u05D8\u05D5\u05DC\u05D4"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 4ae47ae80fa17294babcbf57aa062453, type: 3}
-        isCorrect: 0
-      - textContent: "\u05EA\u05DC \u05D0\u05D1\u05D9\u05D1"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05E7\u05E8\u05D9\u05EA \u05E9\u05DE\u05D5\u05E0\u05D4"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 777a51c7a386a3144b85f083a3405472, type: 3}
-        isCorrect: 0
-      - textContent: "\u05D0\u05D9\u05DC\u05EA"
-        imageContent: {fileID: -1453926751, guid: 074b872df7a8977498055b5959719e77, type: 3}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D4\u05D5 \u05D4\u05D4\u05E8 \u05D4\u05DB\u05D9 \u05D2\u05D1\u05D5\u05D4
-        \u05D1\u05D9\u05E9\u05E8\u05D0\u05DC?"
-      imageContent: {fileID: -1453926751, guid: 074b872df7a8977498055b5959719e77, type: 3}
-      answersList:
-      - textContent: "\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9\u05E9"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: "\u05DB\u05E8\u05DE\u05DC"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05D0\u05E8\u05D1\u05DC"
-        imageContent: {fileID: -1453926751, guid: 074b872df7a8977498055b5959719e77, type: 3}
-        isCorrect: 0
-      - textContent: "\u05D2\u05DC\u05D1\u05D5\u05E2"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05D4\u05DB\u05E0\u05E8\u05EA \u05E0\u05D7\u05E9\u05D1\u05EA \u05DB\u05D0\u05D2\u05DD"
-      imageContent: {fileID: 21300000, guid: 3fced7d8623c184469efc52f41ba779e, type: 3}
-      answersList:
-      - textContent: "\u05E0\u05DB\u05D5\u05DF"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05DC\u05D0 \u05E0\u05DB\u05D5\u05DF"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D4 \u05D4\u05D9\u05D4 \u05E9\u05DE\u05D4 \u05D4\u05E8\u05D0\u05E9\u05D5\u05DF
-        \u05E9\u05DC \u05D4\u05E2\u05D9\u05E8 \u05EA\u05DC \u05D0\u05D1\u05D9\u05D1?"
-      imageContent: {fileID: 21300000, guid: f881efb97df687a4894fe15dd6598a43, type: 3}
-      answersList:
-      - textContent: "\u05D0\u05D7\u05D5\u05D6\u05EA \u05D1\u05D9\u05EA"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: "\u05D0\u05DD \u05D4\u05DE\u05D5\u05E9\u05D1\u05D5\u05EA"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05D0\u05D1\u05D9\u05D1\u05D4"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05E4\u05E8\u05D9\u05D6"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05E0\u05D9\u05D5 \u05E8\u05D5\u05D8\u05E9\u05E9\u05D9\u05DC\u05D3"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05D0\u05D9\u05E4\u05D4 \u05E0\u05DE\u05E6\u05D0 \u05DE\u05D5\u05D6\u05D9\u05D0\u05D5\u05DF
-        \u05D9\u05D3 \u05D5\u05E9\u05DD?"
-      imageContent: {fileID: 596828494, guid: 7f5212f263e80fb44b38201e4388816f, type: 3}
-      answersList:
-      - textContent: "\u05D9\u05E8\u05D5\u05E9\u05DC\u05D9\u05DD"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: "\u05EA\u05DC \u05D0\u05D1\u05D9\u05D1"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 6b535b85ca724fc42b9a8e2ea2a19049, type: 3}
-        isCorrect: 0
-      - textContent: "\u05D4\u05E8\u05E6\u05DC\u05D9\u05D4"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D4\u05D9 \u05D4\u05E6\u05D9\u05E4\u05D5\u05E8 \u05D4\u05DC\u05D0\u05D5\u05DE\u05D9\u05EA?"
-      imageContent: {fileID: 596828494, guid: 7f5212f263e80fb44b38201e4388816f, type: 3}
-      answersList:
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 541b8c50fe9b459439a826df48998da4, type: 3}
-        isCorrect: 1
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 027e37e8ee9e9634684f0569b064d316, type: 3}
-        isCorrect: 0
-      - textContent: "\u05D3\u05E8\u05D5\u05E8"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05E0\u05D7\u05DC\u05D9\u05D0\u05DC\u05D9"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05EA\u05E0\u05E9\u05DE\u05EA"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D4 \u05D0\u05D5\u05E8\u05DB\u05D5 \u05E9\u05DC \u05E9\u05D1\u05D9\u05DC
-        \u05D9\u05E9\u05E8\u05D0\u05DC \u05D1\u05E7\"\u05DE?"
-      imageContent: {fileID: 21300000, guid: 33d2739ecbba1364b945a695d0b4d977, type: 3}
-      answersList:
-      - textContent: 059
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: 0801
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: 0051
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: 000061
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D3\u05D9\u05E0\u05EA \u05D9\u05E9\u05E8\u05D0\u05DC \u05D2\u05D5\u05D1\u05DC\u05EA
-        \u05D1\u05DE\u05D3\u05D9\u05E0\u05D5\u05EA \u05E8\u05D1\u05D5\u05EA. \u05E2\u05DD
-        \u05D0\u05D9\u05D6\u05D5 \u05DE\u05D3\u05D9\u05E0\u05D4 \u05D2\u05D5\u05D1\u05DC\u05EA
-        \u05D9\u05E9\u05E8\u05D0\u05DC \u05DE\u05E6\u05D9\u05D3\u05D4 \u05D4\u05DE\u05D6\u05E8\u05D7\u05D9? "
-      imageContent: {fileID: 0}
-      answersList:
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 878bf8097ba825d4ab3bd2ef438713dc, type: 3}
-        isCorrect: 0
-      - textContent: "\u05D9\u05E8\u05D3\u05DF"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: "\u05DC\u05D1\u05E0\u05D5\u05DF"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: "\u05DE\u05E7\u05E1\u05D9\u05E7\u05D5"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05D9\u05E9\u05E8\u05D0\u05DC \u05E0\u05DE\u05E6\u05D0\u05EA \u05D1\u05D9\u05D1\u05E9\u05EA
-        \u05D0\u05D9\u05E8\u05D5\u05E4\u05D4"
-      imageContent: {fileID: 21300000, guid: aed7d486f4ed5134bae72579dcf7eee5, type: 3}
-      answersList:
-      - textContent: "\u05DC\u05D0 \u05E0\u05DB\u05D5\u05DF"
-        imageContent: {fileID: 0}
-        isCorrect: 1
-      - textContent: "\u05E0\u05DB\u05D5\u05DF"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-    - isAnswered: 0
-      wrongUser: 0
-      content: "\u05DE\u05D4\u05D5 \u05D4\u05DE\u05E7\u05D5\u05DD \u05D4\u05DB\u05D9
-        \u05DE\u05EA\u05D5\u05D9\u05D9\u05E8 \u05D1\u05D9\u05E9\u05E8\u05D0\u05DC?"
-      imageContent: {fileID: 0}
-      answersList:
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 01331f781330f9e4ebd4214843077044, type: 3}
-        isCorrect: 1
-      - textContent: "\u05D9\u05DD \u05D4\u05DE\u05DC\u05D7"
-        imageContent: {fileID: 0}
-        isCorrect: 0
-      - textContent: 
-        imageContent: {fileID: 21300000, guid: 777a51c7a386a3144b85f083a3405472, type: 3}
-        isCorrect: 1
-      - textContent: "\u05E8\u05D9\u05E3 \u05D4\u05D3\u05D5\u05DC\u05E4\u05D9\u05E0\u05D9\u05DD"
-        imageContent: {fileID: 0}
-        isCorrect: 1
+    gameName: "\u05E9\u05DD \u05DE\u05E9\u05D7\u05E7"
+    questionTime: 30
+    questionList: []
   ThrowBallStartingPos: {fileID: 2140142695}
   ThrowBallP1: {fileID: 313453598}
   ThrowBallP2: {fileID: 861577690}
@@ -4024,7 +3831,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 211302483}
   - {fileID: 1847647599}
   - {fileID: 281901797}
   - {fileID: 1709365241}
@@ -16417,6 +16223,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1487766457}
+  - {fileID: 231161633}
   m_Father: {fileID: 1493338114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -17292,7 +17099,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e00c82e08349fa548b5022a7f19e88c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.47058824}
   m_FlipX: 0
@@ -24216,7 +24023,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (c) images by freepick
+  m_text: (c) images by freepik
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24d85598e0e322e408bc9bd700d4fd56, type: 2}
   m_sharedMaterial: {fileID: 4493693804262277045, guid: 24d85598e0e322e408bc9bd700d4fd56, type: 2}
@@ -24595,8 +24402,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -251.47}
-  m_SizeDelta: {x: 653.06, y: 27.72}
+  m_AnchoredPosition: {x: 1.07, y: -251.47}
+  m_SizeDelta: {x: 625.04, y: 27.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1407923029
 MonoBehaviour:
@@ -24619,7 +24426,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 20, y: 20}
-  m_Spacing: {x: 5, y: 0}
+  m_Spacing: {x: 4, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &1413668555
@@ -30012,7 +29819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30.400024, y: -75.399994}
+  m_AnchoredPosition: {x: 30.400024, y: -75.400024}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1836628717
@@ -33918,8 +33725,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.7400055, y: 3.24}
-  m_SizeDelta: {x: 12.81, y: 7.21}
+  m_AnchoredPosition: {x: -3.64, y: -2.56}
+  m_SizeDelta: {x: 12.87, y: 7.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2124379894
 MonoBehaviour:
